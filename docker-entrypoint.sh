@@ -21,4 +21,6 @@ if [[ "$*" == node*current/index.js* ]]; then
     knex-migrator-migrate --init --mgpath "$GHOST_INSTALL/current"
 fi
 
+sed -i '2s|.*|"url": "http://'"$GHOST_URL"'/",|' "$GHOST_INSTALL"/config.production.json
+
 exec "$@"

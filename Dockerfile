@@ -45,16 +45,21 @@ RUN set -ex; \
 ENV PATH $PATH:$GHOST_INSTALL/current/node_modules/knex-migrator/bin
 
 
-# install ttrss and patch configuration
-RUN git clone https://github.com/kathyqian/crisp "$GHOST_CONTENT"/themes/ \
+# install Crisp and patch configuration
+RUN  mkdir -p "$GHOST_CONTENT"/themes/crisp \
+    && git clone https://github.com/kathyqian/crisp "$GHOST_CONTENT"/themes/crisp \
 # Clean up
-    && rm -rf "$GHOST_CONTENT"/themes/crisp/.git
+    && rm -rf "$GHOST_CONTENT"/themes/crisp/.git \
+    && echo -n "" > "$GHOST_CONTENT"/themes/crisp/partials/comments.hbs \
+    && sed -i "41s/.*/<section id='footer-message'>\&copy; {{date format='YYYY'}} {{@blog.title}}. All rights reserved.<\/section>/" "$GHOST_CONTENT"/themes/crisp/default.hbs \
+    && sed -i -e '1,111d'  "$GHOST_CONTENT"/themes/crisp/partials/share.hbs
+
+COPY docker-entrypoint.sh /usr/local/bin
+RUN chmod 777 /usr/local/bin/docker-entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 WORKDIR $GHOST_INSTALL
 VOLUME $GHOST_CONTENT
-
-COPY docker-entrypoint.sh /usr/local/bin
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
 
 EXPOSE 2368
 CMD ["node", "current/index.js"]
