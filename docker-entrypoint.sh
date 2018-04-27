@@ -22,5 +22,6 @@ if [[ "$*" == node*current/index.js* ]]; then
 fi
 
 sed -i '2s|.*|"url": "http://'"$GHOST_URL"'/",|' "$GHOST_INSTALL"/config.production.json
+sed -i '6i\"config": { "posts_per_page": "'"$POST_PER_PAGE"'" },' "$GHOST_CONTENT"/themes/crisp/package.json
 
 exec "$@"

@@ -50,6 +50,7 @@ RUN  mkdir -p "$GHOST_CONTENT"/themes/crisp \
     && git clone https://github.com/kathyqian/crisp "$GHOST_CONTENT"/themes/crisp \
 # Clean up
     && rm -rf "$GHOST_CONTENT"/themes/crisp/.git \
+# disable comments
     && echo -n "" > "$GHOST_CONTENT"/themes/crisp/partials/comments.hbs \
     && sed -i "41s/.*/<section id='footer-message'>\&copy; {{date format='YYYY'}} {{@blog.title}}. All rights reserved.<\/section>/" "$GHOST_CONTENT"/themes/crisp/default.hbs \
     && sed -i -e '1,111d'  "$GHOST_CONTENT"/themes/crisp/partials/share.hbs
