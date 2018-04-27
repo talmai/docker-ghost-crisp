@@ -1,5 +1,8 @@
 # Dockerized Ghost with Crisp Theme
 
+[![Docker Pulls](https://img.shields.io/docker/pulls/talmai/docker-ghost-crisp.svg)](https://hub.docker.com/r/talmai/docker-ghost-crisp/)
+[![Docker Stars](https://img.shields.io/docker/stars/talmai/docker-ghost-crisp.svg)](https://hub.docker.com/r/talmai/docker-ghost-crisp/)
+
 Everything needed to build [Ghost](https://github.com/docker-library/ghost) with [Crisp](https://github.com/kathyqian/crisp) theme.
 
 ## GHOST_URL Environmental variable
